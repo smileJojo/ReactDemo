@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*React.createClss生成组建类,
+		组件类的第一个字母必须大写，只能包含一个顶层标签
+		*/
+		'use strict';
+		var HelloMessage = React.createClass({
+			render:function(){
+				return <h1>Hello {this.props.name}</h1>;
+			}
+		})
+		ReactDOM.render(
+			<HelloMessage name = {'chenxiao'}/>,
+			document.getElementById('example')
+		);
+	</script>
+</body>
+</html>

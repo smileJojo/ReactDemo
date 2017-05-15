@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*this.props.children:表示组件的所有子节点
+		当前没有子节点：undefined,
+		一个子节点：object，         ==========>三种状态可以用React.Children来处理
+		多个子节点：array
+		*/
+		'use strict';
+		var NoteList = React.createClass({
+			render:function(){
+				return(
+					<ol>
+					{
+						React.Children.map(this.props.children,function(child){
+							return <li>{child}</li>
+						})
+					}
+					</ol>
+				);
+			}
+		})
+		ReactDOM.render(
+			<NoteList>
+				<span>hello</span>
+				<span>world</span>
+			</NoteList>,
+			document.getElementById('example')
+		);
+	</script>
+</body>
+</html>

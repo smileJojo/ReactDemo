@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this.state</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*从组建获取真实的dom节点
+		*/
+		var LinkButton = React.createClass({
+      getInitalState:function(){
+        return {liked:false};
+      },
+      render:function(){
+        
+      }
+    })
+
+      ReactDOM.render(
+        <MyComponent />,
+        document.getElementById('example')
+      );
+
+	</script>
+</body>
+</html>
