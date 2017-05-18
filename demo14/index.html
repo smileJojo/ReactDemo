@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5 拖拽</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*：
+		*/
+		var SurveyEditor = React.createClss({
+            getInitialState:function(){
+              return{
+                  dropZoneEntered:false,
+                  title:'Fantastic Survey',
+                  introduction:'This survey is fantastic!',
+                  questions:[]
+              }  
+            },
+            handleFormChange:function(formData){
+                this.setState(formData);
+            },
+            handleDragOver:function(ev){
+                //这保证handleDropZoneDrop可以背调用
+                ev.preventDefault();
+            },
+            handleDragEnter:function(){
+                this.setState({dropZoneEntered:true});
+            },
+            handleDragLeave:function(){
+                this.setState({dropZoneEntered:false});
+            },
+            handleDrop:function(ev){
+              var questionType = ev.dataTransfer.getData('questionType');
+              var questions = this.state.questions;
+              questions = questions.concat({type:questionType});
+                this.setState({
+                    questions:questions,
+                    dropZoneEntered:false
+                })
+            },
+            render:function(){
+                var questions = this.state.questions;
+                
+                var dropZoneEntered = '';
+                if(this.state.dropZoneEntered){
+                    dropZoneEntered = 'drag-enter';
+                }
+                
+                return(
+                    <div className = 'survey-editor'>
+                        <div className = 'row'>
+                            <aside className = 'sidebar col-md-3'>
+                                <h2>Modules</h2>
+                                <DraggableQuestion />
+                            </aside>
+                            
+                            <div clasNmae= 'survey-canvas col-md-9'>
+                                <SuveyFrom title={this.state.title}
+                                    introduction = {this.state.introduction}
+                                    onChange = {this.handleFormChange}/>
+                                <Divider>Questions</Divider>
+                                <ReqctCSSTransitionGroup transitionName='question'>{questions}
+                                </ReqctCSSTransitionGroup>
+                            </div>
+                            
+                            <div clasName='survey-canvas col-md-9'>
+                                <div className={'drop-zone well well-drop-zone'}
+                                    onDragOver = {this.handleDragOver}
+                                    onDragEnter = {this.handleDragEnter}
+                                    onDragLeave = {this.handleDragLeave}
+                                    onDrop = {this.handleDrop}></div>
+                                    Drag and drop a module from left
+                            </div>
+                            
+                            <div className= 'actions'>
+                                <button className = 'btn btn-save' onClick = {this.handleSaveClicked}>Save</button>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                )
+            }
+        })
+
+      ReactDOM.render(
+        <SurveyEditor />,
+        document.getElementById('example')
+      );
+
+	</script>
+</body>
+</html>

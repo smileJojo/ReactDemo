@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时间</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*表单：
+		*/
+		var CountryDropdown = React.createClass({
+            getInitialState:function(){
+                return{
+                    showOptions:false
+                }
+            },
+            handleClick:function(){
+                if(this.state.showOptions){
+                    this.setState({
+                        showOptions:false
+                    })
+                }else{
+                   this.setState({
+                    showOptions:true
+                   }) 
+                }
+                
+            },
+            render:function(){
+                var options;
+                
+                if(this.state.showOptions){
+                    options = (
+                       <ul>
+                            <li>美国</li>
+                            <li>中国</li>
+                            <li>英国</li>
+                        </ul>
+                    );
+                    
+                }
+                return(
+                    <div className = "dropdown" onClick = {this.handleClick}>
+                        <label> Choose a country</label>
+                        {options}
+                    </div>
+                )
+            }
+        })
+
+      ReactDOM.render(
+        <CountryDropdown />,
+        document.getElementById('example')
+      );
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时间</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type = "text/babel">
+		//*** our code goes here! ***
+		/*表单：
+		*/
+		var Data = React.createClass({
+      
+//      dataToString:function(d){
+//        return [
+//            d.getFullYear(),
+//            d.getMonth()+1,
+//            d.getDate()
+//        ].join('-')  
+//      },
+            componentDidMount:function(){
+            console.log(this.getDOMNode());
+        },
+      render:function(){
+          var text = ['hello',',world']; 
+          var htmlString = {
+              _html:'<span>an html string</span>'
+          }
+        return(
+            <div>
+            {/*<h2>2017-04-20{this.dataToString(new Data())}</h2>*/}
+            <h2>{text}</h2>
+            {/*<div dangerousSetInnerHTML = {htmlString}></div>*/}
+            </div>
+        )
+      }
+    })
+
+      ReactDOM.render(
+        <Data />,
+        document.getElementById('example')
+      );
+
+	</script>
+</body>
+</html>
