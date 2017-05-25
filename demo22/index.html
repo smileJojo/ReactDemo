@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义表单组件</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/**/
+		var UserName = React.createClass({
+			static:{
+				getAsyncState:function(props,setState){
+					User.findById(props.userId)
+						.then(function(user){
+							setState({user:user});
+						})
+						.catch(function(error){
+							setState({error:error});
+						})
+				}
+			},
+			//客户端和服务端
+			componentWillMount:function(){
+				if(this.props.initalState){
+					this.setState(this.props.initalState);
+				}
+			},
+			//仅客户端
+			componentDidMount:function(){
+				// 如果props中没有，则获取异步state
+				if(!this.props.initalState){
+					this.updateAsyncState();
+				}
+
+				// 监听change事件
+				User.on("change",this.updateAsyncState);
+			},
+			//仅客户端
+			componentWillUnmount:function(){
+				User.off("change",this.updateAsyncState);
+			},
+			updateAsyncState:function(){
+				this.constructor.getAsyncState(this.props,this.setState);
+			},
+			render:function(){
+				if( this.state.error){
+					return <div>{this.state.error.message}</div>;
+				}
+				if(!this.state.user){
+					return <div>loading...</div>;
+				}
+				return <div>{this.state.user.username}</div>;
+			}
+		});
+
+		//在服务器端渲染
+		var props = {
+			userId:23
+		};
+		UserName.getAsyncState(props,function(initalState){
+			props[initalState] = initalState;
+			var result = React.renderToString(UserName(props));
+
+			//使用initialState将结果传递到客户端
+		})
+		// ReactDOM.render(
+  //       	<MyForm/>,
+  //       	document.getElementById('example')
+  //     	);
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义表单组件</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*
+		
+		 */
+		
+		var Radio = React.createClass({
+			propTypes : {
+			  onChange: React.PropTypes.func
+			},
+			getInitialState:function(){
+				return{
+					value : this.props.defaultValue
+				}
+			},
+			handleChange:function(e){
+				if(this.props.onChange){
+					this.props.onChange(e);
+				}
+				this.setState({
+					value:e.target.value
+				})
+			},
+			render:function(){
+				var children = {};
+				var value = this.props.value || this.state.value;
+				
+				React.Children.forEach(this.props.children,function(child,i){
+					console.log(child.props.value,child.props.children);
+					var label = (
+						<label>
+							<input type = "radio" name = {this.props.name} value ={child.props.vlaue} checked = {child.props.value == value} onChange = {this.handleChange}/ >
+							{child.props.children}
+						</label>
+					)
+					children['lable'+i] = label;
+				}.bind(this))
+
+				return this.transferPropsTo(<span>{children}</span>)
+			
+			}
+		})
+
+		var MyForm = React.createClass({
+			submitHandler:function(e){
+				e.preventDefault();
+				alert(this.refs.radio.state.value);
+			},
+			render:function(){
+				return(
+					<form onSubmit = {this.submitHandler}>
+	<Radio ref = "radio" name = "my_radio" defaultValue = "B">
+							<option value = "A">First option</option>
+							<option value = "B">Second option</option>
+							<option value = "C">Third option</option>
+							<option value = "D">Forth option</option>
+						</Radio>					
+						<button type="submit">speak</button>
+					</form>
+				)
+			}
+		})
+
+		ReactDOM.render(
+        	<MyForm/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

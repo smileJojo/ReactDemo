@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mixins</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*计时器1
+			minxin:允许定义可以再多个组件中共用的方法
+		*/
+		var IntervalMixin = {
+			setInterval:function(callback,interval){
+				var token = setInterval(callback,interval);
+				this._interval.push(token);
+				return token;
+			},
+			
+			componentDidMount:function(){
+				this._interval = [];
+			},
+			componentWillUnmount:function(){
+				this._interval.map(clearInterval);
+			}
+			
+		};
+		var Timer = React.createClass({
+			mixins:[IntervalMixin],
+			componentDidMount:function(){
+				this.setInterval(this.forceUpdate.bind(this),1000)
+			},
+			render:function(){
+				var from = Number(new Date(2017,1,1));
+				var to = Date.now();
+				return(
+					<div>{Math.round((to-from)/1000)}</div>
+				)
+			}
+		});
+		var Timer2 = React.createClass({
+			mixins:[IntervalMixin],
+			componentDidMount:function(){
+				this.setInterval(this.forceUpdate.bind(this),1000)
+			},
+			render:function(){
+				var from = Number(new Date(2017,3,1));
+				var to = Date.now();
+				return(
+
+					<div><p><Timer/></p>
+					{Math.round((to-from)/1000)}</div>
+				)
+			}
+		})
+
+		
+
+		ReactDOM.render(
+        	<Timer2/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

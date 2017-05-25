@@ -1,0 +1,25 @@
+{
+  "name": "demo24",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":  "webpack --config webpack.config.js",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "css-loader": "^0.28.2",
+    "postcss-loader": "^2.0.5",
+    "react": "^15.5.4",
+    "style-loader": "^0.18.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "webpack": "^2.6.0",
+    "webpack-dev-server": "^2.4.5"
+  }
+}

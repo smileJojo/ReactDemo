@@ -1,0 +1,23 @@
+{
+  "name": "unittest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "render_into_document_spec.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jasmine-core": "^2.6.2",
+    "karma": "^1.7.0",
+    "webpack": "^2.6.0"
+  },
+  "devDependencies": {
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-jasmine": "^1.1.0",
+    "react-addons-test-utils": "^15.5.1",
+    "react-dom": "^15.5.4"
+  }
+}

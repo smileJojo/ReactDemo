@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单：无约束组件</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*无约束组件:元素本身的属性，不需要通过父级传递的，如：defaultValue
+			可以用在基本的无须任何验证或者输入控制的表单中
+		*/
+		var MyForm = React.createClass({
+
+			submitHandler:function(event){
+				event.preventDefault();
+				var helloTo = this.refs.helloTo.value;
+				alert(helloTo);
+			},
+			render:function(){
+				return(
+					<form onSubmit = {this.submitHandler}>
+						<input ref="helloTo" type="text" defaultValue="hello world!"/>
+						<br/>
+						<button type = "submit">speak</button><br/>
+						<select defaultValue={['A','B']} multiple ="true">
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+						</select><br/>
+						<input ref="checked" type="checkbox" value="A" defaultChecked="true"/>
+						<br/>
+						
+					</form>
+				)
+			}
+		})
+		
+		
+
+		ReactDOM.render(
+        	<MyForm/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

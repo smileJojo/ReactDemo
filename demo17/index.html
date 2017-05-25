@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>refs</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*refs
+		此文件夹为DOM操作的内容
+			
+		*/
+		
+		var DoodleArea = React.createClass({
+			
+			render:function(){
+				return(
+					<div ref = "eidtableDiv" contentEditable = "true" onKeyDown ={this.handleKeyDown}>
+					<p>fdafadfa</p>
+					</div>
+				)
+			},
+			handleKeyDown:function(){
+				var editor = this.refs.eidtableDiv;   //0.14版本以后
+				var editor = this.refs.eidtableDiv.getDOMNode(); //之前
+				//http://www.oschina.net/news/66873/react-0-14
+				var html = editor.innerHTML;
+				console.log(html.length);
+			}
+		})
+		
+
+		ReactDOM.render(
+        	<DoodleArea/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

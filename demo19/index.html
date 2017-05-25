@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单：多个表单元素与change处理器</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*
+		方法一：通过.bind传递其他参数
+		 */
+		
+		var MyForm = React.createClass({
+			getInitialState:function(){
+				return {
+					given_name:'',
+					family_name:''
+				}
+			},
+			handleChange:function(name,event){
+				var newState ={}
+				 newState[name] = event.target.value;
+				 console.log(newState)
+				this.setState(newState)
+
+			},
+			submitHandler:function(e){
+				e.preventDefault();
+				var words = [
+					"Hi",this.state.given_name,this.state.family_name
+				]
+				alert(words.join(' '));
+			},
+
+			
+			render:function(){
+				//input 中不能手动添加defaultValue="test" ，在getInitialState 有设置
+				return(
+					<form onSubmit = {this.submitHandler}>
+						<lable htmlFor = "given_name">given name:</lable><br/>
+						<input type="text" name ="given_name" value ={ this.state.given_name} onChange = {this.handleChange.bind(this,'given_name')}/><br/>
+						<lable htmlFor = "family_name">family name:</lable><br/>
+						<input type="text" name ="family_name" value ={this.state.family_name} onChange = {this.handleChange.bind(this,'family_name')}/><br/>
+						<button type="submit">speak</button>
+					</form>
+				)
+			}
+		})
+		
+		
+
+		ReactDOM.render(
+        	<MyForm/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

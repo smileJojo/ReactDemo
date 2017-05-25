@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>refs</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*refs
+		此文件夹为DOM操作的内容
+			
+		*/
+		
+		var AutocompleteCities = React.createClass({
+			render:function(){
+				return <div id="cities" ref = "autocompletecTarget"></div>
+			},
+			getDefaultProps:function(){
+				return {
+					data:[
+						'San Francisco',
+						'St. Louis',
+						'Amsterdam',
+						'Los Angeles'
+					]
+				};
+			},
+			handleSelect:function(city){
+				alert('you have selected the city of'+city);
+			},
+			componentDidMount:function(){
+				autocomplete({
+					target : this.refs.autocompletecTarget;
+					data:this.props.data,
+					events:{
+						select:this.handleSelect
+					}
+				})
+			}
+		})
+		
+
+		ReactDOM.render(
+        	<DoodleArea/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

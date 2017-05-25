@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单：约束组件</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*约束组件:由React组件控制，状态值被存储在React组件的state中
+			
+		*/
+		var MyForm = React.createClass({
+			getInitialState:function(){
+				return {
+					hello:'',
+					options:['A','B'],
+					radio:'B'
+				}
+			},
+			handleChange:function(event){
+				
+
+				/*****select**********************/
+				var checked = [];
+				var sel=event.target;
+				console.log(sel.length)
+				for(var i=0;i<sel.length;i++){
+					var option = sel.options[i];
+					if(option.selected){
+						checked.push(option.value);
+					}
+				}
+				this.setState({
+					hello:event.target.value.toUpperCase(),
+					options:checked,
+					radio:event.target.value
+				})
+			},
+
+			submitHandler:function(event){
+				event.preventDefault();
+				// var helloTo = this.refs.helloTo.value;
+				alert(this.state.radio);
+			},
+			render:function(){
+				//input 中不能手动添加defaultValue="test" ，在getInitialState 有设置
+				return(
+					<form onSubmit = {this.submitHandler}>
+						<input ref="helloTo" type="text"  value={this.state.hello} />
+						<br/>
+						<button type = "submit">speak</button>
+						<select value={this.state.options} multiple ="true" onChange={this.handleChange}>
+						<option>请选择</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+						</select>
+							<br/>
+						<input type="radio" value="A" checked={this.state.radio=="A"} onChange = {this.handleChange}/><br/>
+						<input type="radio" value="B" checked={this.state.radio=="B"} onChange = {this.handleChange}/><br/>
+						<input type="radio" value="C" checked={this.state.radio=="C"} onChange = {this.handleChange}/><br/>
+						<input type="radio" value="D" checked={this.state.radio=="D"} onChange = {this.handleChange}/><br/>
+						
+					</form>
+				)
+			}
+		})
+		
+		
+
+		ReactDOM.render(
+        	<MyForm/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>

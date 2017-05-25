@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mixins</title>
+	<script src="../js/react.min.js"></script>
+    <script src="../js/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		/*计时器1
+			minxin:允许定义可以再多个组件中共用的方法
+		*/
+		var IntervalMixin = function(interval){
+			return {
+				componentDidMount:function(){
+					this._interval = setInterval(this.onTrick, interval);
+				},
+				componentWillUnmount:function(){
+					clearInterval(this._interval);
+				}
+			};
+		};
+		var Timer = React.createClass({
+			mixins:[IntervalMixin (1000)],
+			getInitialState:function(){
+				return{secondsElapsed:0};
+			},
+			onTrick:function(){
+				this.setState({secondsElapsed:this.state.secondsElapsed+1});
+			},
+			render:function(){
+				return(
+					<div>Seconds Elapsed:{this.state.secondsElapsed}</div>
+				)
+			}
+		})
+
+		
+
+		ReactDOM.render(
+        	<Timer/>,
+        	document.getElementById('example')
+      	);
+	</script>
+	
+</body>
+</html>
